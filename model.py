@@ -18,5 +18,35 @@ print(df.isnull().sum())
 # plt.show()
 
 print(df.corr(numeric_only=True))
-sns.heatmap(df.corr(numeric_only=True),  annot = True)
-plt.show()
+# sns.heatmap(df.corr(numeric_only=True),  annot = True)
+# plt.show()
+
+# sns.boxplot(data= df, x ="year", y = "price")
+# plt.xticks(rotation = 90)
+# plt.show()
+
+# sns.scatterplot(data = df, x = "mileage", y = "price")
+# plt.show()
+
+# sns.boxplot(data = df, x = "engineSize", y = "price")
+# plt.show()
+
+# sns.boxplot(data = df, x = "transmission", y = "price")
+# plt.show()
+
+
+# sns.boxplot(data = df, x = "fuelType", y = "price")
+# plt.show()
+
+
+# sns.boxplot(data = df, x = "model", y = "price")
+# plt.xticks(rotation = 90)
+# plt.show()
+
+# sns.boxplot(data = df, x = "tax", y = "price")
+# plt.xticks(rotation = 90)
+# plt.show()
+
+# sns.boxplot(data = df, x = "mpg", y = "price")
+# plt.xticks(rotation = 90)
+# plt.show()
