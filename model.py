@@ -88,3 +88,15 @@ p = X_test.shape[1]
 adjusted_r2 = 1 - (1 - r2) * (n - 1) / (n - p - 1)
 print("R-squared:", r2)
 
+
+
+X_train, X_test, y_train, y_test = train_test_split(Xlable, y, test_size = 0.2, random_state = 42)
+
+model2 = LinearRegression()
+model2.fit(X_train, y_train)
+y_pred = model2.predict(X_test)
+r2 = r2_score(y_test, y_pred)
+n = X_test.shape[0]
+p = X_test.shape[1]
+adjusted_r2 = 1 - (1 - r2) * (n - 1) / (n - p - 1)
+print("R-squared:", r2)
