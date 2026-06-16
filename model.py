@@ -57,12 +57,34 @@ y = df['price']
 x_one_encoded = pd.get_dummies(x, columns = ['model', 'transmission', 'fuelType'], drop_first = True)
 
 from sklearn.preprocessing import LabelEncoder
-le = LabelEncoder()
+
 columns = ['model', 'transmission', 'fuelType']
-Xlable = x
-for i in columns:
-    Xlable[i] = le.fit_transform(Xlable[i])
+Xlable = x.copy()
+label_encoders = {}
+for col in columns:
+    le = LabelEncoder()
+    Xlable[col] = le.fit_transform(Xlable[col].astype(str))
+    label_encoders[col] = le
 
+from sklearn.preprocessing import StandardScaler
+num_columns = ['year', 'mileage', 'engineSize', 'tax', 'mpg']
+scaler = StandardScaler()
+x_one_encoded[num_columns] = scaler.fit_transform(x_one_encoded[num_columns])
 
+Xlable[['year', 'mileage', 'engineSize', 'tax', 'mpg', 'fuelType', 'transmission', 'model']] = scaler.fit_transform(Xlable[['year', 'mileage', 'engineSize', 'tax', 'mpg', 'fuelType', 'transmission', 'model']])
 
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
+
+X_train, X_test, y_train, y_test = train_test_split(x_one_encoded, y, test_size = 0.2, random_state = 42)
+
+model = LinearRegression()
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+r2 = r2_score(y_test, y_pred)
+n = X_test.shape[0]
+p = X_test.shape[1]
+adjusted_r2 = 1 - (1 - r2) * (n - 1) / (n - p - 1)
+print("R-squared:", r2)
 
