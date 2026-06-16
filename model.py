@@ -50,3 +50,19 @@ print(df.corr(numeric_only=True))
 # sns.boxplot(data = df, x = "mpg", y = "price")
 # plt.xticks(rotation = 90)
 # plt.show()
+
+x = df.drop(columns = ['price'], axis = 1)
+y = df['price']
+
+x_one_encoded = pd.get_dummies(x, columns = ['model', 'transmission', 'fuelType'], drop_first = True)
+
+from sklearn.preprocessing import LabelEncoder
+le = LabelEncoder()
+columns = ['model', 'transmission', 'fuelType']
+Xlable = x
+for i in columns:
+    Xlable[i] = le.fit_transform(Xlable[i])
+
+
+
+
